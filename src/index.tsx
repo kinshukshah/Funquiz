@@ -4,21 +4,24 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import {QuizProvider} from "./context/QuizContext/quizContext";
-import {ThemeProvider,createTheme} from '@material-ui/core/styles'
+import { QuizProvider } from "./context/QuizContext/quizContext";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { UserProvider } from "./context/UserContext/userContext";
 
-const customTheme=createTheme({
-  palette:{
-    type:"light"
-  }
-})
+const customTheme = createTheme({
+  palette: {
+    type: "light",
+  },
+});
 ReactDOM.render(
   <ThemeProvider theme={customTheme}>
-  <BrowserRouter>
-    <QuizProvider>
-      <App />
-    </QuizProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+      <QuizProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </QuizProvider>
+    </BrowserRouter>
   </ThemeProvider>,
   document.getElementById("root")
 );

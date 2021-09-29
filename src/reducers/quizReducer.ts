@@ -19,6 +19,18 @@ export const QuizReducer = (
         ...state,
         quizId: action.payload.quizId,
       };
+    case "UPDATE_SCORE":
+      return {
+        ...state,
+        score: action.payload.isCorrect
+          ? state.score + action.payload.updateScore
+          : state.score - action.payload.updateScore,
+      };
+    case "ADD_TO_ANSWER_LIST":
+      return {
+        ...state,
+        answerList: [...state.answerList, action.payload.answer],
+      };
     default:
       throw new Error("Something Went Wrong!!");
   }

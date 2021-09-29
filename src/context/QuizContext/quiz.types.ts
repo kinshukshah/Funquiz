@@ -69,4 +69,19 @@ export type QuizReducerInitialStateType = {
   answerList: AnswerListType[];
 };
 
-export type ActionType = { type: "SET_QUIZ"; payload: { quizId: string } };
+export type ActionType =
+  | { type: "SET_QUIZ"; payload: { quizId: string } }
+  | {
+      type: "UPDATE_SCORE";
+      payload: { updateScore: number; isCorrect: boolean };
+    }
+  | {
+      type: "ADD_TO_ANSWER_LIST";
+      payload: {
+        answer: {
+          questionId: string;
+          selectedOptionId: string;
+          isCorrect: boolean;
+        };
+      };
+    };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -38,9 +38,18 @@ const useStyles = makeStyles({
     cursor: "no-drop",
   },
 });
-export const QuizCard = () => {
-  const { quizList, quizState, currentQuestion, setCurrentQuestion } =
-    useQuiz();
+export const QuizCard = ({
+  setDisplayResult,
+}: {
+  setDisplayResult: Dispatch<boolean>;
+}) => {
+  const {
+    quizList,
+    quizState,
+    currentQuestion,
+    setCurrentQuestion,
+    dispatchQuiz,
+  } = useQuiz();
   const classes = useStyles();
   const currentQuizInfo =
     quizList && GetCurrentQuizList(quizState.quizId, quizList);
@@ -50,13 +59,58 @@ export const QuizCard = () => {
   const [selectedOption, setselectedOption] = useState<string>("");
   const [selectedValueIsRight, setSelectedValueIsRight] =
     useState<boolean>(false);
-  console.log({ getCurrentQuestion });
+  const isLastQuestion =
+    currentQuizInfo && currentQuizInfo.totalQuestions === currentQuestion + 1;
+  console.log({ getCurrentQuestion, isLastQuestion });
   useEffect(() => {
-    if (selectedOption) {
+    if (selectedOption && getCurrentQuestion) {
       setTimeout(() => {
-        setCurrentQuestion((current) => current + 1);
-        setselectedOption("");
-      }, 3000);
+        if (!isLastQuestion) {
+          setCurrentQuestion((current) => current + 1);
+          dispatchQuiz({
+            type: "UPDATE_SCORE",
+            payload: {
+              updateScore: selectedValueIsRight
+                ? getCurrentQuestion.positiveMarks
+                : getCurrentQuestion.negativeMarks,
+              isCorrect: selectedValueIsRight,
+            },
+          });
+          dispatchQuiz({
+            type: "ADD_TO_ANSWER_LIST",
+            payload: {
+              answer: {
+                questionId: getCurrentQuestion._id,
+                isCorrect: selectedValueIsRight,
+                selectedOptionId: selectedOption,
+              },
+            },
+          });
+          setselectedOption("");
+        } else {
+          dispatchQuiz({
+            type: "UPDATE_SCORE",
+            payload: {
+              updateScore: selectedValueIsRight
+                ? getCurrentQuestion.positiveMarks
+                : getCurrentQuestion.negativeMarks,
+              isCorrect: selectedValueIsRight,
+            },
+          });
+          dispatchQuiz({
+            type: "ADD_TO_ANSWER_LIST",
+            payload: {
+              answer: {
+                questionId: getCurrentQuestion._id,
+                isCorrect: selectedValueIsRight,
+                selectedOptionId: selectedOption,
+              },
+            },
+          });
+          setselectedOption("");
+          setDisplayResult(true);
+        }
+      }, 500);
     }
   }, [selectedOption]);
   return (
