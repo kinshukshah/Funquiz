@@ -13,6 +13,6 @@ export const PrivateRoute = ({
   return user ? (
     <Route element={element} path={path} />
   ) : (
-    <Navigate state={{ from: path }} replace to="/signin" />
+    <Navigate state={{ from: { pathName: path } }} replace to="/signin" />
   );
 };

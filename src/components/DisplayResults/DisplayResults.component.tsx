@@ -2,6 +2,7 @@ import { CardMedia, Divider, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useQuiz } from "../../context/QuizContext/quizContext";
 import { GetCurrentQuizList } from "../../utils/functions.utils";
+import { ResultAction } from "../ResultAction/resultAction.component";
 import { ResultCard } from "../ResultCard/ResultCard.component";
 
 export const DisplayResults = () => {
@@ -18,11 +19,11 @@ export const DisplayResults = () => {
           return (
             <>
               <ResultCard quiz={item} quizInfo={QuizInfo} />
-              <Divider />
             </>
           );
         })}
       </Grid>
+      <ResultAction />
     </Grid>
   );
 };

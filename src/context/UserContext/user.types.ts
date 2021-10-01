@@ -31,3 +31,9 @@ export type UserContextType = {
   user: UserType | null;
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 };
+
+export type LocationState = {
+  from: {
+    pathName: string;
+  };
+};

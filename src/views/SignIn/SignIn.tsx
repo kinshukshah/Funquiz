@@ -14,12 +14,17 @@ import { useNavigate, useLocation } from "react-router";
 import { useUser } from "../../context/UserContext/userContext";
 import { UserSignIn } from "../../utils/ApiCall.utils";
 import { Link as BaseLink } from "react-router-dom";
+import { LocationState } from "../../context/UserContext/user.types";
 export const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { setUser, user } = useUser();
   const navigate = useNavigate();
-  const { state } = useLocation();
-  console.log({ state });
+  const location = useLocation();
+  const { from } = (location.state as LocationState) || {
+    from: { pathName: "/" },
+  };
+  console.log({ from });
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
@@ -36,7 +41,8 @@ export const SignIn = () => {
     } else {
       setUser(isUserSignIn);
       console.log({ isUserSignIn });
-      navigate("/");
+      console.log({ from });
+      navigate(from.pathName);
     }
   };
   return (
@@ -76,7 +82,12 @@ export const SignIn = () => {
               autoFocus
               type="password"
             />
-            <Button type="submit" fullWidth variant="contained" disabled={loading}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              disabled={loading}
+            >
               {loading ? (
                 <CircularProgress color="secondary" disableShrink />
               ) : (

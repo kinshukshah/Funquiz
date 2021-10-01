@@ -1,5 +1,5 @@
 import { Container, Grid, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuiz } from "../../context/QuizContext/quizContext";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { QuizCard } from "../QuizCard/quizCard.component";
@@ -33,8 +33,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export const DisplayQuiz = ({ quizId }: DisplayQuiz) => {
   const classes = useStyles();
   const { quizList, currentQuestion, quizState, dispatchQuiz } = useQuiz();
-  const [displayResult, setDisplayResult] = useState<boolean>(false);
-  console.log({ quizState });
+  const [displayResult, setDisplayResult] = useState<boolean>(
+    currentQuestion === 4
+  );
+  console.log({ displayResult });
+  // useEffect(() => {
+  //   console.log({ currentQuestion });
+  //   if (currentQuestion === 4) {
+  //     setDisplayResult(true);
+  //   }
+  // }, []);
   return (
     <Container maxWidth="md" style={{ textAlign: "center" }}>
       {!displayResult ? (
