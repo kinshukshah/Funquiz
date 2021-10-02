@@ -10,6 +10,8 @@ import {
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import React from "react";
+import { DisplayResults } from "../../components/DisplayResults/DisplayResults.component";
+import { UserQuizTable } from "../../components/UserQuizTable/UserQuizTable.component";
 import { useUser } from "../../context/UserContext/userContext";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const UserDetails = () => {
   const { user } = useUser();
+
   return (
     <Container maxWidth="xs">
       <Card variant="elevation">
@@ -46,6 +49,9 @@ export const UserDetails = () => {
             </Grid>
             <Grid item xs={12} sm={2}>
               <Typography gutterBottom>{user?.user.email}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <UserQuizTable tableData={user?.user.takenQuizList} />
             </Grid>
           </Grid>
         </CardContent>

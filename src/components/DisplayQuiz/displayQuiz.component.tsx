@@ -36,6 +36,7 @@ export const DisplayQuiz = ({ quizId }: DisplayQuiz) => {
   const [displayResult, setDisplayResult] = useState<boolean>(
     currentQuestion === 4
   );
+
   console.log({ displayResult });
   // useEffect(() => {
   //   console.log({ currentQuestion });
@@ -62,7 +63,7 @@ export const DisplayQuiz = ({ quizId }: DisplayQuiz) => {
           <QuizCard setDisplayResult={setDisplayResult} />
         </>
       ) : (
-        <DisplayResults />
+        <DisplayResults resultData={quizState} resultAction={true} />
       )}
     </Container>
   );
