@@ -1,35 +1,26 @@
 import {
   Avatar,
-  Box,
+  Button,
   Card,
+  CardActions,
   CardContent,
   Container,
   Grid,
   Typography,
 } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
 import React from "react";
-import { DisplayResults } from "../../components/DisplayResults/DisplayResults.component";
 import { UserQuizTable } from "../../components/UserQuizTable/UserQuizTable.component";
 import { useUser } from "../../context/UserContext/userContext";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      width: "100%",
-    },
-    paper: {
-      // height: 240,
-      width: 250,
-    },
-  })
-);
+import { useNavigate } from "react-router-dom";
 
 export const UserDetails = () => {
-  const { user } = useUser();
-
+  const { setUser, user } = useUser();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    navigate("/");
+  };
   return (
     <Container maxWidth="xs">
       <Card variant="elevation">
@@ -55,6 +46,15 @@ export const UserDetails = () => {
             </Grid>
           </Grid>
         </CardContent>
+        <CardActions>
+          <Button
+            style={{ margin: "0 auto" }}
+            variant="contained"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </CardActions>
       </Card>
     </Container>
   );

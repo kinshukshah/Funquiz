@@ -16,7 +16,7 @@ import { useNavigate, Link as BaseLink } from "react-router-dom";
 
 export const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { setUser, user } = useUser();
+  const { setUser } = useUser();
   const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

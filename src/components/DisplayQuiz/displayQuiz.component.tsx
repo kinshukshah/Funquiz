@@ -1,5 +1,5 @@
 import { Container, Grid, Typography } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuiz } from "../../context/QuizContext/quizContext";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { QuizCard } from "../QuizCard/quizCard.component";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DisplayQuiz = ({ quizId }: DisplayQuiz) => {
   const classes = useStyles();
-  const { quizList, currentQuestion, quizState, dispatchQuiz } = useQuiz();
+  const { quizList, currentQuestion, quizState } = useQuiz();
   const [displayResult, setDisplayResult] = useState<boolean>(
     currentQuestion === 4
   );

@@ -17,7 +17,7 @@ import { Link as BaseLink } from "react-router-dom";
 import { LocationState } from "../../context/UserContext/user.types";
 export const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { setUser, user } = useUser();
+  const { setUser } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
   const { from } = (location.state as LocationState) || {

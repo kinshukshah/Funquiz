@@ -15,7 +15,7 @@ export const QuizContext = createContext<QuizContextTypes>(
 export const QuizProvider = ({ children }: QuizProviderProps): JSX.Element => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [quizList, setQuizList] = useState<Quizes | null>(null);
-   const [quizState, dispatchQuiz] = useReducer(QuizReducer, INITIAL_STATE);
+  const [quizState, dispatchQuiz] = useReducer(QuizReducer, INITIAL_STATE);
   useEffect(() => {
     (async function () {
       const quizes = await GetAllQuizes();

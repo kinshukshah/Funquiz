@@ -1,4 +1,4 @@
-import { CardMedia, Divider, Grid, Typography } from "@material-ui/core";
+import {  Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { QuizReducerInitialStateType } from "../../context/QuizContext/quiz.types";
 import { useQuiz } from "../../context/QuizContext/quizContext";

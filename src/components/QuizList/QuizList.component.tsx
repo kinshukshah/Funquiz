@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Quiz, Quizes } from "../../context/QuizContext/quiz.types";
+import { Quiz } from "../../context/QuizContext/quiz.types";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
