@@ -9,42 +9,17 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router";
-import { useUser } from "../../context/UserContext/userContext";
-import { UserSignIn } from "../../utils/ApiCall.utils";
+import React from "react";
+import { useLocation } from "react-router";
 import { Link as BaseLink } from "react-router-dom";
 import { LocationState } from "../../context/UserContext/user.types";
+import { useUserData } from "../../hooks/useUserData";
 export const SignIn = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { setUser } = useUser();
-  const navigate = useNavigate();
   const location = useLocation();
-  const { from } = (location.state as LocationState) || {
+  const locationState = (location.state as LocationState) || {
     from: { pathName: "/" },
   };
-  console.log({ from });
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    const formdata = new FormData(event.currentTarget);
-    const data = {
-      email: formdata.get("email") as string,
-      password: formdata.get("password") as string,
-    };
-    const isUserSignIn = await UserSignIn(data);
-
-    if ("error" in isUserSignIn) {
-      alert("Error" + isUserSignIn.error);
-      setLoading(false);
-    } else {
-      setUser(isUserSignIn);
-      console.log({ isUserSignIn });
-      console.log({ from });
-      navigate(from.pathName);
-    }
-  };
+  const { handleSubmit, error, loading } = useUserData();
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -60,7 +35,12 @@ export const SignIn = () => {
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box
+            component="form"
+            onSubmit={(e) =>
+              handleSubmit(e as React.FormEvent<HTMLFormElement>, locationState)
+            }
+          >
             <TextField
               margin="normal"
               label="Email Address"

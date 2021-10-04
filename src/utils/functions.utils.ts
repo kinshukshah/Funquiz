@@ -1,9 +1,10 @@
 import { Quizes } from "../context/QuizContext/quiz.types";
 
 export const CheckIsValidQuizId = (
-  quizId: string,
+  quizId: string | undefined,
   quizList: Quizes
 ): boolean => {
+  if (!quizId) return false;
   let isExists = quizList.quizList.find(({ _id }) => _id === quizId);
   return isExists ? true : false;
 };
