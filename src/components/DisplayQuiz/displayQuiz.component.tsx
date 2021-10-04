@@ -6,7 +6,7 @@ import { QuizCard } from "../QuizCard/quizCard.component";
 import { DisplayResults } from "../DisplayResults/DisplayResults.component";
 
 export type DisplayQuiz = {
-  quizId: string;
+  quizId: string | undefined;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
