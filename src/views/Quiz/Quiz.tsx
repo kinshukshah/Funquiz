@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuiz } from "../../context/QuizContext/quizContext";
 import { CheckIsValidQuizId } from "../../utils/functions.utils";
@@ -9,6 +9,9 @@ export const Quiz = () => {
   const { quizList } = useQuiz();
   const isQuizExists = quizList && CheckIsValidQuizId(quizId, quizList);
   console.log({ quizList, isQuizExists });
+  useEffect(() => {
+    return () => console.log("Unmounted");
+  });
   if (quizList && !isQuizExists) {
     return <Navigate replace to="/" />;
   }

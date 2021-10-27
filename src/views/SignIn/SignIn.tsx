@@ -1,14 +1,13 @@
 import {
-  Avatar,
+  Container,
   Box,
+  Avatar,
+  Typography,
+  TextField,
   Button,
   CircularProgress,
-  Container,
   Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { useLocation } from "react-router";
 import { Link as BaseLink } from "react-router-dom";
@@ -19,7 +18,7 @@ export const SignIn = () => {
   const locationState = (location.state as LocationState) || {
     from: { pathName: "/" },
   };
-  const { handleSubmit, error, loading } = useUserData();
+  const { handleSignInSubmit, error, loading } = useUserData();
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -37,8 +36,11 @@ export const SignIn = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={(e) =>
-              handleSubmit(e as React.FormEvent<HTMLFormElement>, locationState)
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+              handleSignInSubmit(
+                e as React.FormEvent<HTMLFormElement>,
+                locationState
+              )
             }
           >
             <TextField
@@ -69,18 +71,16 @@ export const SignIn = () => {
               disabled={loading}
             >
               {loading ? (
-                <CircularProgress color="secondary" disableShrink />
+                <CircularProgress color="secondary" size={20} disableShrink />
               ) : (
                 "Sign In"
               )}
             </Button>
             <Grid container>
               <Grid item>
-                <Link>
-                  <BaseLink to="/signup">
-                    {"Don't have a account ? Sign Up"}
-                  </BaseLink>
-                </Link>
+                <BaseLink to="/signup">
+                  {"Don't have a account ? Sign Up"}
+                </BaseLink>
               </Grid>
             </Grid>
           </Box>

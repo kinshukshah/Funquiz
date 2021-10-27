@@ -7,20 +7,13 @@ import {
   Container,
   Grid,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { UserQuizTable } from "../../components/UserQuizTable/UserQuizTable.component";
-import { useUser } from "../../context/UserContext/userContext";
-import { useNavigate } from "react-router-dom";
+import { useUserData } from "../../hooks/useUserData";
 
 export const UserDetails = () => {
-  const { setUser, user } = useUser();
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    navigate("/");
-  };
+  const { handleLogout, user } = useUserData();
   return (
     <Container maxWidth="xs">
       <Card variant="elevation">

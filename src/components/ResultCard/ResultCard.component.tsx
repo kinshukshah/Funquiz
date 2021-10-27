@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { AnswerListType, Quiz } from "../../context/QuizContext/quiz.types";
 
@@ -12,7 +12,7 @@ export const ResultCard = ({
   const quizQuestion =
     quizInfo &&
     quizInfo.questionsList.find((item) => item._id === quiz.questionId);
-
+  const theme=useTheme();
   return (
     <>
       {quizQuestion ? (
@@ -25,17 +25,17 @@ export const ResultCard = ({
             {quizQuestion?.question}
           </Typography>
           {quizQuestion?.options.map((item) => {
-            let bgColor = "#edf2f7";
+            let bgColor = "inherit";
             if (quiz.isCorrect) {
               if (quiz.selectedOptionId === item._id) {
-                bgColor = "lightgreen";
+                bgColor = theme.palette.success.light;
               }
             } else {
               if (item.isRight) {
-                bgColor = "lightgreen";
+                bgColor = theme.palette.success.light;
               }
               if (quiz.selectedOptionId === item._id) {
-                bgColor = "red";
+                bgColor = theme.palette.error.light;
               }
             }
             return (
@@ -44,6 +44,7 @@ export const ResultCard = ({
                 style={{
                   backgroundColor: bgColor,
                   marginBottom: "1rem",
+                  color:"inherit"
                 }}
                 size="large"
                 fullWidth={true}

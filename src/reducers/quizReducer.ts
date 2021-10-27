@@ -16,7 +16,8 @@ export const QuizReducer = (
   switch (action.type) {
     case "SET_QUIZ":
       return {
-        ...state,
+        score: 0,
+        answerList: [],
         quizId: action.payload.quizId,
       };
     case "UPDATE_SCORE":

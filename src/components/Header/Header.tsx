@@ -1,46 +1,52 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  IconButton,
+  AppBar,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import MenuIcon from "@material-ui/icons/Menu";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
-import { useUser } from "../../context/UserContext/userContext";
 import { useNavigate } from "react-router-dom";
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    typography: {
-      flexGrow: 1,
-    },
-  })
-);
 
-const Header = () => {
-  const classes = useStyles();
-  const { user } = useUser();
+const Header = ({
+  toggleColorMode,
+}: {
+  toggleColorMode: (param: any) => void;
+}) => {
   const navigate = useNavigate();
+  const theme = useTheme();
   return (
-    <Container maxWidth="xl" style={{ marginBottom: "100px" }}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton color="inherit">
+    <AppBar position="sticky" sx={{ marginBottom: "2rem" }} color="inherit">
+      <Toolbar>
+        <div style={{ flexGrow: 1 }}>
+          <IconButton
+            onClick={() => navigate("/")}
+            color="inherit"
+            disableRipple
+          >
             <MenuIcon />
+            <Typography
+              variant="h6"
+              color="rgb(8, 4, 251)"
+              sx={{ marginLeft: "5px" }}
+            >
+              FunQuiz
+            </Typography>
           </IconButton>
-          <Typography variant="h6" className={classes.typography}>
-            FunQuiz
-          </Typography>
-          <IconButton color="inherit" onClick={() => navigate("/user/detail")}>
-            <AccountCircleIcon />
-          </IconButton>
-          <IconButton color="inherit">
-            <NightsStayIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Container>
+        </div>
+
+        <IconButton color="inherit" onClick={() => navigate("/user/detail")}>
+          <AccountCircleIcon />
+        </IconButton>
+        <IconButton color="inherit" onClick={toggleColorMode}>
+          {theme.palette.mode === "dark" ? <WbSunnyIcon /> : <NightsStayIcon />}
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 };
 

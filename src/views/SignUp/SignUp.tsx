@@ -1,49 +1,19 @@
 import {
-  Avatar,
+  Container,
   Box,
+  Avatar,
+  Typography,
+  TextField,
   Button,
   CircularProgress,
-  Container,
   Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import React, { useState } from "react";
-import { useUser } from "../../context/UserContext/userContext";
-import { UserSignIn, UserSignUp } from "../../utils/ApiCall.utils";
-import { useNavigate, Link as BaseLink } from "react-router-dom";
+} from "@mui/material";
+import React from "react";
+import { Link as BaseLink } from "react-router-dom";
+import { useUserData } from "../../hooks/useUserData";
 
 export const SignUp = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { setUser } = useUser();
-  const navigate = useNavigate();
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    const formdata = new FormData(event.currentTarget);
-    const data = {
-      name: formdata.get("name") as string,
-      email: formdata.get("email") as string,
-      password: formdata.get("password") as string,
-    };
-    const res = await UserSignUp(data);
-    if (res.success) {
-      const isUserSignIn = await UserSignIn({
-        email: formdata.get("email") as string,
-        password: formdata.get("password") as string,
-      });
-
-      if ("error" in isUserSignIn) {
-        alert("Error" + isUserSignIn.error);
-        setLoading(false);
-      } else {
-        console.log({ isUserSignIn });
-        setUser(isUserSignIn);
-        navigate("/");
-      }
-    }
-  };
+  const { loading, error, handleSignUpSubmit } = useUserData();
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -59,7 +29,7 @@ export const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSignUpSubmit}>
             <TextField
               margin="normal"
               label="Name"
@@ -98,18 +68,16 @@ export const SignUp = () => {
               disabled={loading}
             >
               {loading ? (
-                <CircularProgress disableShrink color="secondary" />
+                <CircularProgress disableShrink color="secondary" size={20} />
               ) : (
                 "SignUp"
               )}
             </Button>
             <Grid container>
               <Grid item>
-                <Link>
-                  <BaseLink to="/signin">
-                    {"Already have a account ? Login"}
-                  </BaseLink>
-                </Link>
+                <BaseLink to="/signin">
+                  {"Already have a account ? Login"}
+                </BaseLink>
               </Grid>
             </Grid>
           </Box>

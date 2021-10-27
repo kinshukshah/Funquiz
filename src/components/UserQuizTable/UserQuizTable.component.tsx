@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { QuizReducerInitialStateType } from "../../context/QuizContext/quiz.types";
 import { GetCurrentQuizList } from "../../utils/functions.utils";
 import { useQuiz } from "../../context/QuizContext/quizContext";
-import { Button } from "@material-ui/core";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import { DisplayResults } from "../DisplayResults/DisplayResults.component";
+import {
+  Button,
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
+  Paper,
+} from "@mui/material";
 
 export type ModelType = {
   open: boolean;
