@@ -10,6 +10,7 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
+import QuizIcon from "@mui/icons-material/Quiz";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({
@@ -28,12 +29,8 @@ const Header = ({
             color="inherit"
             disableRipple
           >
-            <MenuIcon />
-            <Typography
-              variant="h6"
-              color="rgb(8, 4, 251)"
-              sx={{ marginLeft: "5px" }}
-            >
+            <QuizIcon />
+            <Typography variant="h6" sx={{ marginLeft: "5px" }}>
               FunQuiz
             </Typography>
           </IconButton>
