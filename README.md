@@ -25,4 +25,4 @@ Live link: [https://funquiz-kinshukshah-tech.netlify.app/](https://funquiz-kinsh
 - Start the dev server with `npm start`
 
 #### App screenshot
-![FunQuiz-ss](https://postimg.cc/qzJcBsvf)
+![FunQuiz-ss](https://i.postimg.cc/8PWZHw8C/Screenshot-11.png)
