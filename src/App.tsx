@@ -26,7 +26,14 @@ function XYZ() {
           <Route path="/quiz/detail/:quizId" element={<QuizList />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <PrivateRoute path="/user/detail" element={<UserDetails />} />
+          <Route
+            path="/user/detail"
+            element={
+              <PrivateRoute path="/user/detail">
+                <UserDetails />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         {/* <Footer /> */}
       </Paper>

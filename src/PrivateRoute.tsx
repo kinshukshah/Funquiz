@@ -1,17 +1,17 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useUser } from "./context/UserContext/userContext";
 
 export const PrivateRoute = ({
   path,
-  element,
+  children,
 }: {
   path: string;
-  element: JSX.Element;
+  children: JSX.Element;
 }) => {
   const { user } = useUser();
   return user ? (
-    <Route element={element} path={path} />
+    children
   ) : (
     <Navigate state={{ from: { pathName: path } }} replace to="/signin" />
   );
